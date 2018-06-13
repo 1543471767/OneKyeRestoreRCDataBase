@@ -383,7 +383,7 @@ namespace OneKyeRestoreRCDataBase
                 this.Dispatcher.BeginInvoke((Action)delegate
                 {
                     this.btnExcute_Sql.IsEnabled = true;
-                    ProgressRing.Visibility = Visibility.Hidden;
+                    ProgressRing.Visibility = Visibility.Hidden; 
                 });
 
             });
