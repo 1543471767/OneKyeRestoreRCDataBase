@@ -1,0 +1,9 @@
+E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\bin\Release\Infrastrure.dll
+E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\bin\Release\Infrastrure.pdb
+E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\bin\Release\FluentFTP.dll
+E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\bin\Release\Model.dll
+E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\bin\Release\Model.pdb
+E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\bin\Release\FluentFTP.xml
+E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\obj\Release\Infrastrure.csprojResolveAssemblyReference.cache
+E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\obj\Release\Infrastrure.dll
+E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\obj\Release\Infrastrure.pdb

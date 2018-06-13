@@ -1,0 +1,17 @@
+﻿<controls:MetroWindow x:Class="OneKyeRestoreRCDataBase.TemplateConfigWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OneKyeRestoreRCDataBase"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Title="TemplateConfigWindow" Height="600" Width="1000" WindowStartupLocation="CenterScreen" Loaded="MetroWindow_Loaded">
+    <Grid>
+        <TextBox x:Name="textBox_Template" HorizontalAlignment="Left" Height="465" Margin="48,29,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="913" AcceptsReturn="True" />
+        <Button x:Name="btn_Sync" Content="同步" HorizontalAlignment="Left" Margin="658,513,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.069,1.111" Click="btn_Sync_Click"/>
+        <Button x:Name="btn_Save" Content="保存" HorizontalAlignment="Left" Margin="756,513,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.069,1.111" Click="btn_Save_Click"/>
+        <Button x:Name="btn_Commit" Content="保存并提交" HorizontalAlignment="Left" Margin="853,513,0,0" VerticalAlignment="Top" Width="75" RenderTransformOrigin="1.069,1.111" Click="btn_Commit_Click"/>
+
+    </Grid>
+</controls:MetroWindow>

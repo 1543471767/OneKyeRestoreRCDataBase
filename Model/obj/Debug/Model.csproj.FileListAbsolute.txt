@@ -1,0 +1,5 @@
+E:\_01项目\OneKyeRestoreRCDataBase\Model\bin\Debug\Model.dll
+E:\_01项目\OneKyeRestoreRCDataBase\Model\bin\Debug\Model.pdb
+E:\_01项目\OneKyeRestoreRCDataBase\Model\obj\Debug\Model.csprojResolveAssemblyReference.cache
+E:\_01项目\OneKyeRestoreRCDataBase\Model\obj\Debug\Model.dll
+E:\_01项目\OneKyeRestoreRCDataBase\Model\obj\Debug\Model.pdb
