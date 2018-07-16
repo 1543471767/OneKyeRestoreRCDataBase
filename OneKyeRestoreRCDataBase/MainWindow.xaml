@@ -21,9 +21,9 @@
             <ColumnDefinition Width="375*"/>
             <ColumnDefinition Width="142*"/>
         </Grid.ColumnDefinitions>
-        <GroupBox x:Name="groupBox" Header="数据库配置" HorizontalAlignment="Left" Margin="10,34,0,0" VerticalAlignment="Top" Height="229" Width="223" Panel.ZIndex="-1"/>
+        <GroupBox x:Name="groupBox" Header="数据库配置" HorizontalAlignment="Left" Margin="11,34,0,0" VerticalAlignment="Top" Height="242" Width="228" Panel.ZIndex="-1"/>
         <GroupBox x:Name="groupBox1" Header="Bak文件FTP配置" HorizontalAlignment="Left" Margin="11,281,0,0" VerticalAlignment="Top" Height="183" Width="228" Panel.ZIndex="-1"/>
-        <Button x:Name="btnTestConnect" Content="测试连接" HorizontalAlignment="Left" Margin="87,245,0,0" VerticalAlignment="Top" Width="75" Click="btnTestConnect_Click" ForceCursor="True"/>
+        <Button x:Name="btnTestConnect" Content="测试连接" HorizontalAlignment="Left" Margin="87,240,0,0" VerticalAlignment="Top" Width="75" Click="btnTestConnect_Click" ForceCursor="True"/>
         <Label x:Name="label_Ip" Content="IP:" HorizontalAlignment="Left" Margin="24,75,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label_UserName" Content="账号:" HorizontalAlignment="Left" Margin="24,104,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.108,0.462"/>
         <Label x:Name="label_PassWord" Content="密码:" HorizontalAlignment="Left" Margin="24,139,0,0" VerticalAlignment="Top"/>

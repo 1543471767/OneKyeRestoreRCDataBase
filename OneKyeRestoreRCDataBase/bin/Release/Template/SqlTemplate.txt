@@ -1,136 +1,134 @@
-
+﻿					BEGIN
                     USE master
-                    ALTER DATABASE [{0}] SET OFFLINE WITH ROLLBACK IMMEDIATE GO
+                    ALTER DATABASE [{0}] SET OFFLINE WITH ROLLBACK IMMEDIATE
 					if object_id('{0}') IS not null 	DROP DATABASE [{0}]
-                    GO
 
-                    --1.��ԭ˳����������--���챸��
-                    RESTORE DATABASE [{0}] --��ԭ��������
-                    FROM DISK = N'{1}\{2}' --�����ļ����·��
+                    --1.还原顺序：完整备份--差异备份
+                    RESTORE DATABASE [{0}] --还原的数据名
+                    FROM DISK = N'{1}\{2}' --备份文件存放路径
                     WITH MOVE 'RC' TO 'D:\Data\{0}.mdf',
                          MOVE 'RC_log' TO 'D:\Data\{0}.ldf',
-                    STATS = 10,  --��ԭ����10%һ�� 
-                    REPLACE,     --����ԭ�����ݿ�
-                    NORECOVERY   --���ݿ�Ϊ������ģʽ��ע�������Ҫ�ָ��������ݣ�����һ��Ҫ��NORECOVERY
-                    GO
+                    STATS = 10,  --还原进度10%一跳 
+                    REPLACE,     --覆盖原来数据库
+                    NORECOVERY   --数据库为不可用模式，注意如果需要恢复增量备份，这里一定要是NORECOVERY
 
-                    --2.��ԭ��������
+                    --2.还原增量备份
                     RESTORE DATABASE [{0}]
                     FROM DISK = N'{3}\{4}'
                     WITH
                     STATS = 10,
-                    NORECOVERY  --�������Ҫ������ԭ��־���ݣ�����ΪRECOVERY�������ݿ�ָ�����״̬
-                    GO
+                    NORECOVERY  --如果不需要继续还原日志备份，这里为RECOVERY，让数据库恢复可用状态
 
 
 
-                    --3.��ԭ��־����,��������(����ֱ��ʹ�ã��ű�ͨ��powershell�ļ�����)
+                    --3.还原日志备份,类似如下(不能直接使用，脚本通过powershell文件生成)
                     {5}
 
-                    --4.ʹ���ݿ⴦�ڿ�ʹ�õ�״̬
+                    --4.使数据库处于可使用的状态
                     RESTORE DATABASE {0} WITH RECOVERY
-                    GO
+					END
 
                     {6}
+						
 
-
-                    --5.���»�ԭ������Դ
+					BEGIN TRAN
+                    --5.更新还原库数据源
                     USE [{0}]                                                                                                 
-                    --��������������Դ�������޸�
-                    --��������
+                    --测试数据数据来源表连接修改
+                    --百融数据
                      UPDATE [RC].[VB_SRC_TP] SET VB_SRC_TP_ADDR='http://10.138.60.43:6100/bairong/query/report'  WHERE VB_SRC_TP_ID=19
-                    --���߱�������
+                    --银策本地数据
                      UPDATE [RC].[VB_SRC_TP] SET VB_SRC_TP_ADDR='http://10.138.31.25:8080/creditCardInfo/getUPAWxCardHis'  WHERE VB_SRC_TP_ID=21
-                    --�ֻ�����
+                    --手机数据
                      UPDATE [RC].[VB_SRC_TP] SET VB_SRC_TP_ADDR='http://10.138.60.43:7777/mobile/query/summaryById/Json'  WHERE VB_SRC_TP_ID=24
                      UPDATE [RC].[RC].[VB_SRC_TP] SET VB_SRC_TP_ADDR='http://10.138.60.43:7777/mobile/query/summary/Json'  WHERE VB_SRC_TP_ID=31
-                    --��Ԫ����
+                    --鹏元数据
                      UPDATE [RC].[VB_SRC_TP] SET VB_SRC_TP_ADDR='http://10.1.12.29:7001/pengyuan/education/query'  WHERE VB_SRC_TP_ID=27
-                    --��������
+                    --银策数据
                      UPDATE [RC].[VB_SRC_TP] SET VB_SRC_TP_ADDR='http://10.138.60.95:9000/VBSource/unionnew/VBSourceRestService/getUPAWxCardInfoNew'  WHERE VB_SRC_TP_ID=33
-                    --����������
+                    --聚信立数据
                      UPDATE [RC].[VB_SRC_TP] SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/VBScoreRestService/GetVB4Score?SCORE_TYPE=JXL_SCORE'  WHERE VB_SRC_TP_ID=38
-                    --�۹�����
+                    --蜜罐数据
                      UPDATE [RC].[VB_SRC_TP] SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/VBScoreRestService/GetVB4Score?SCORE_TYPE=MG_SCORE'  WHERE VB_SRC_TP_ID=39
-                    --����Դ��ѯ�ӿ�
+                    --变量源查询接口
                      UPDATE [RC].[VB_SRC_TP] SET VB_SRC_TP_ADDR='http://10.138.60.16:9901/PreLoan/Check/IsClearLoanRC'  WHERE VB_SRC_TP_ID=42
-                     --ά�ű���
+                     --维信变量
                      UPDATE [RC].[RC].[VB_SRC_TP] SET VB_SRC_TP_ADDR='http://10.138.60.16:9901/PreLoan/Check/IsCommonDebt'  WHERE VB_SRC_TP_ID=43
-                    --����������ӿ�
+                    --数立公积金接口
                      UPDATE [RC].[VB_SRC_TP] SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/VBSourceRestService/GetGjjData'  WHERE VB_SRC_TP_ID=44
-                    --��������
+                    --网银数据
                     UPDATE [RC].[VB_SRC_TP] SET VB_SRC_TP_ADDR='http://10.138.60.43:7102/moxie/query/bank/bill/variable/idcard'  WHERE VB_SRC_TP_ID=45
-                    --���������ֻ������ַΪ���Ե�ַ
+                    --更新数立手机报告地址为测试地址
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/VBSourceRestService/GetMobileReportInforShuLi' WHERE VB_SRC_TP_ID=47
 
-                    --�������ű���Դ��ַΪ���Ե�ַ
+                    --更新征信变量源地址为测试地址
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/GetCreditVariableValues' WHERE VB_SRC_TP_ID=49
 
-                    --���´�������թ���ֲ�ѯ�ӿڵ�ַΪ���Ե�ַ
+                    --更新大数据欺诈评分查询接口地址为测试地址
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.1.20.30:5000/general/fraud/credit/ext' WHERE VB_SRC_TP_ID=50
                                 
-                    --���´������������ֲ�ѯ�ӿڵ�ַΪ���Ե�ַ
+                    --更新大数据信用评分查询接口地址为测试地址
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/VBSourceRestService/GetDSJCreditScore',VB_SRC_TP_PARAS='product_id,mobile_id,report_id,id_card,message_id,BusType'  WHERE VB_SRC_TP_ID=51
 
 
-                    --����֥������-��ҵ��ע������ѯ�ӿ�����Դ��ַΪ���Ե�ַ
+                    --更新芝麻信用-行业关注名单查询接口数据源地址为测试地址
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/Api/VbSource/GetZmxyWatchListii' WHERE VB_SRC_TP_ID=52
 
-                    --����֥������-������թ���ֲ�ѯ����Դ��ַΪ���Ե�ַ
+                    --更新芝麻信用-申请欺诈评分查询数据源地址为测试地址
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/Api/VbSource/GetZmxyAntiFraudScore' WHERE VB_SRC_TP_ID=53
 
-                    --ͬ�ܲ��Ե�ַ                              
+                    --同盾测试地址                              
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/Api/VbSource/TongDun' WHERE VB_SRC_TP_ID=54
 
-                    --���´������������ֲ�ѯ�ӿڵ�ַΪ���Ե�ַ
+                    --更新大数据信用评分查询接口地址为测试地址
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.1.20.30:5000/general/mobile' WHERE VB_SRC_TP_ID=55
 
-                    --���ű�����Ե�ַ                              
+                    --资信报告测试地址                              
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/GetCisVariableValues' WHERE VB_SRC_TP_ID=56
 
-                    --�籣������Ե�ַ                              
+                    --社保报告测试地址                              
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/GetSheBaoVariableValues' WHERE VB_SRC_TP_ID=57
 
-                    --�Ա�������Ե�ַ                              
+                    --淘宝报告测试地址                              
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/Api/VbSource/GetTaobaoVbInfo' WHERE VB_SRC_TP_ID=58
 
-                    --ͬ��ģ�ͷֽӿڲ��Ե�ַ                              
+                    --同盾模型分接口测试地址                              
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/VBSourceRestService/TongDunModel' WHERE VB_SRC_TP_ID=60
 
-                    --�¶����ֻ����ֲ�ѯ�ӿ�����Դ���Ե�ַ                              
+                    --新豆豆手机评分查询接口数据源测试地址                              
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/GetMobileScoreCalculateById' WHERE VB_SRC_TP_ID=61
 
-                    --��Ѷ��������թ�ӿ�
+                    --腾讯天御反欺诈接口
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/GetTencentTYVariableValues' WHERE VB_SRC_TP_ID=62
 
-                    --�������Ų�ѯ�ӿ�
+                    --新颜征信查询接口
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/Api/VbSource/GetXinyanVbInfo' WHERE VB_SRC_TP_ID=63
 
-                    --�������籣��ѯ�ӿ�����Դ
+                    --公积金、社保查询接口数据源
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/GetGJJSheBaoSearchHistoryData' WHERE VB_SRC_TP_ID=64
 
-                    --�������ֽӿ�����Դ
+                    --聚信立分接口数据源
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/GetJxlScore' WHERE VB_SRC_TP_ID=65
 
 
-                    --�������������ű���
+                    --房产共有人征信变量
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/GetCoownerCreditVariableValues' WHERE VB_SRC_TP_ID=66
 
-                    --����ͨ�����ֽӿ�
+                    --资信通用评分接口
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/Api/VbSource/CisGeneralScore' WHERE VB_SRC_TP_ID=68
 
-                    --���ڱ���ӿ�
+                    --百融报告接口
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/GetBaiRongReport' WHERE VB_SRC_TP_ID=69
 
-                    --����Σ�յ÷ֽӿ�
+                    --百融危险得分接口
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/GetBaiRongRiskScore' WHERE VB_SRC_TP_ID=70
 
-                    --�ٶ���ʯ�����ӿ�
+                    --百度磐石变量接口
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/Api/VbSource/GetBDPSVariableValues' WHERE VB_SRC_TP_ID=72
 
-                    --�Ű��ֻ�������ѯ�ӿ�
+                    --号安手机变量查询接口
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/GetHaoAnVariableValues' WHERE VB_SRC_TP_ID=73
 
-                    --�������÷ֽӿ�����Դ
+                    --卡卡信用分接口数据源
                     UPDATE RC.VB_SRC_TP SET VB_SRC_TP_ADDR='http://10.138.60.149:12345/GetCCLExt' WHERE VB_SRC_TP_ID=75
-
+					COMMIT

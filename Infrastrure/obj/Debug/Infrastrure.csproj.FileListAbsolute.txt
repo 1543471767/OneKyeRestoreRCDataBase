@@ -1,9 +1,0 @@
-E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\bin\Debug\Infrastrure.dll
-E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\bin\Debug\Infrastrure.pdb
-E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\bin\Debug\FluentFTP.dll
-E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\bin\Debug\Model.dll
-E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\bin\Debug\Model.pdb
-E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\bin\Debug\FluentFTP.xml
-E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\obj\Debug\Infrastrure.csprojResolveAssemblyReference.cache
-E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\obj\Debug\Infrastrure.dll
-E:\_01项目\OneKyeRestoreRCDataBase\Infrastrure\obj\Debug\Infrastrure.pdb

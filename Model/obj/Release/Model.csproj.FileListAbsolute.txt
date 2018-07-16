@@ -2,3 +2,5 @@ E:\_01项目\OneKyeRestoreRCDataBase\Model\bin\Release\Model.dll
 E:\_01项目\OneKyeRestoreRCDataBase\Model\bin\Release\Model.pdb
 E:\_01项目\OneKyeRestoreRCDataBase\Model\obj\Release\Model.dll
 E:\_01项目\OneKyeRestoreRCDataBase\Model\obj\Release\Model.pdb
+E:\_01项目\OneKyeRestoreRCDataBase\Model\obj\Release\Model.csprojResolveAssemblyReference.cache
+E:\_01项目\OneKyeRestoreRCDataBase\Model\obj\Release\Model.csproj.CoreCompileInputs.cache

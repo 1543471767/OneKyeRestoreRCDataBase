@@ -1,17 +1,18 @@
-﻿using System.Reflection;
+﻿using System.Resources;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("Infrastrure")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Vcredit贷前公共类库-Demo")]
+[assembly: AssemblyDescription("Vcredit贷前公共类库-Demo")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Infrastrure")]
-[assembly: AssemblyCopyright("Copyright ©  2018")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCompany("维信金科")]
+[assembly: AssemblyProduct("豆豆钱")]
+[assembly: AssemblyCopyright("Copyright ?  2018")]
+[assembly: AssemblyTrademark("http://www.vcredit.com/images/logo.png")]
 [assembly: AssemblyCulture("")]
 
 //将 ComVisible 设置为 false 将使此程序集中的类型
@@ -20,7 +21,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("49cd64c1-dbad-4c88-81b5-b8fdf6b1bdc8")]
+[assembly: Guid("e149921d-299c-4350-9be0-8890eceb161e")]
 
 // 程序集的版本信息由下列四个值组成: 
 //
@@ -29,8 +30,7 @@ using System.Runtime.InteropServices;
 //      生成号
 //      修订号
 //
-//可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值，
-// 方法是按如下所示使用“*”: :
-// [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: NeutralResourcesLanguage("zh-Hans")]
+
